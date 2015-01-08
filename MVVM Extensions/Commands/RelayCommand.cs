@@ -2,70 +2,73 @@
 
 namespace TommasoScalici.MVVMExtensions.Commands
 {
-    public class RelayCommand : CommandBase
+    public class RelayCommand : CommandBase, IRelayCommand
     {
-        private readonly Action execute;
-        private readonly Func<bool> canExecute;
-        private readonly Action<object> executeWithParam;
-        private readonly Predicate<object> canExecuteWithParam;
+        private readonly Action<object> execute;
+        private readonly Func<object, bool> canExecute;
+
+
+        public event EventHandler<CommandEventArgs> Executed;
 
 
         public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
-            this.execute = execute;
-            this.canExecute = canExecute ?? new Func<bool>(() => true);
+            this.execute = x => execute();
+            this.canExecute = canExecute == null ? new Func<object, bool>(x => true) : x => canExecute();
         }
 
-        public RelayCommand(Action execute, Predicate<object> canExecuteWithParam)
+        public RelayCommand(Action<object> execute, Func<bool> canExecute = null)
         {
             this.execute = execute;
-            this.canExecuteWithParam = canExecuteWithParam ?? new Predicate<object>(x => true);
+            this.canExecute = canExecute == null ? new Func<object, bool>(x => true) : x => canExecute();
         }
 
-        public RelayCommand(Action<object> executeWithParam, Func<bool> canExecute = null)
+        public RelayCommand(Action execute, Func<object, bool> canExecute)
         {
-            this.executeWithParam = executeWithParam;
-            this.canExecute = canExecute ?? new Func<bool>(() => true);
+            this.execute = x => execute();
+            this.canExecute = canExecute;
         }
 
-        public RelayCommand(Action<object> executeWithParam, Predicate<object> canExecuteWithParam)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
         {
-            this.executeWithParam = executeWithParam;
-            this.canExecuteWithParam = canExecuteWithParam ?? new Predicate<object>(x => true);
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
 
-        protected RelayCommand() { }
 
-
-        public override bool CanExecute(object parameter = null) => canExecuteWithParam?.Invoke(parameter) ?? CanExecute();
-
-        public bool CanExecute() => canExecute?.Invoke() ?? false;
+        public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;
 
         public override void Execute(object parameter, bool ignoreCanExecute = false)
         {
             if (ignoreCanExecute || CanExecute() || CanExecute(parameter))
             {
                 RaiseCanExecuteChanged();
-
-                execute?.Invoke();
-                executeWithParam?.Invoke(parameter);
-
-                OnExecuted();
+                execute?.Invoke(parameter);
+                OnExecuted(new CommandEventArgs(parameter));
             }
+        }
+
+        protected override void OnExecuted(EventArgs e)
+        {
+            Executed?.Invoke(this, e as CommandEventArgs);
+            base.OnExecuted(e);
         }
     }
 
 
-    public class RelayCommand<T> : CommandBase
+    public class RelayCommand<T> : CommandBase, IRelayCommand<T>
     {
         private readonly Action<T> execute;
-        private readonly Predicate<T> canExecute;
+        private readonly Func<T, bool> canExecute;
 
 
-        public RelayCommand(Action<T> execute, Predicate<T> canExecute = null)
+        public event EventHandler<CommandEventArgs<T>> Executed;
+
+
+        public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
         {
             this.execute = execute;
-            this.canExecute = canExecute;
+            this.canExecute = canExecute ?? new Func<T, bool>(x => true);
         }
 
 
@@ -76,11 +79,15 @@ namespace TommasoScalici.MVVMExtensions.Commands
             if (ignoreCanExecute || CanExecute((T)parameter))
             {
                 RaiseCanExecuteChanged();
-
                 execute?.Invoke((T)parameter);
-
-                OnExecuted();
+                OnExecuted(new CommandEventArgs<T>((T)parameter));
             }
+        }
+
+        protected override void OnExecuted(EventArgs e)
+        {
+            Executed?.Invoke(this, e as CommandEventArgs<T>);
+            RaiseCanExecuteChanged();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
         public CancellationToken Token { get { return cts.Token; } }
 
+
         public bool CanExecute(object parameter = null)
         {
             return commandExecuting && !cts.IsCancellationRequested;
