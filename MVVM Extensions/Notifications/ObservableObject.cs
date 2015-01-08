@@ -18,7 +18,7 @@ namespace TommasoScalici.MVVMExtensions.Notifications
         /// Raise the <see cref="PropertyChanged"/> event for the named property.
         /// </summary>
         /// <param name="propertyName">The name of the property of which <see cref="PropertyChanged"/> event will be raised.</param>
-        /// <param name="broadcast">If true will raise <see cref="PropertyChanged"/> recursively for all <see cref="ObservableObject"/>.</param>
+        /// <param name="broadcast">If true, it will raise <see cref="PropertyChanged"/> recursively for all <see cref="ObservableObject"/>.</param>
         public void RaisePropertyChanged([CallerMemberName] string propertyName = null, bool broadcast = false)
         {
             if (IsNotifying)
@@ -27,9 +27,23 @@ namespace TommasoScalici.MVVMExtensions.Notifications
 
                 if (broadcast)
                 {
-                    foreach (var property in GetType().GetTypeInfo().DeclaredProperties)
-                        OnPropertyChanged(new PropertyChangedEventArgs(property.Name));
+                    foreach (var property in GetType().GetRuntimeProperties())
+                        if (property.PropertyType.GetTypeInfo().IsSubclassOf(typeof(ObservableObject)))
+                            RaisePropertyChanged(property.Name, broadcast);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Raise the <see cref="PropertyChanged"/> event for all properties on this <see cref="ObservableObject"/>.
+        /// </summary>
+        /// <param name="broadcast">If true, it will raise <see cref="PropertyChanged"/> recursively for all <see cref="ObservableObject"/>.</param>
+        public void RaiseAllPropertyChanged(bool broadcast = false)
+        {
+            if (IsNotifying)
+            {
+                foreach (var property in GetType().GetRuntimeProperties())
+                    RaisePropertyChanged(property.Name, broadcast);
             }
         }
 

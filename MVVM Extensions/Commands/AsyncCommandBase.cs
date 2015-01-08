@@ -1,44 +1,43 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TommasoScalici.MVVMExtensions.Notifications;
 
 namespace TommasoScalici.MVVMExtensions.Commands
 {
-    public abstract class AsyncCommandBase : CommandBase, IAsyncCommand, INotifyPropertyChanged
+    public abstract class AsyncCommandBase : CommandBase, INotifyPropertyChanged
     {
-        private ObservableTask execution;
+        private readonly Func<bool> canExecute;
+        private readonly Predicate<object> canExecuteWithParam;
+        private bool isExecuting;
+
+
+        public AsyncCommandBase(Func<bool> canExecute = null)
+        {
+            this.canExecute = canExecute ?? new Func<bool>(() => true);
+        }
+
+        public AsyncCommandBase(Predicate<object> canExecuteWithParam)
+        {
+            this.canExecuteWithParam = canExecuteWithParam;
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
 
         public abstract ICommand CancelCommand { get; }
-
-        public ObservableTask Execution
+        public virtual bool IsExecuting
         {
-            get { return execution; }
-            protected set
-            {
-                execution = value;
-                RaisePropertyChanged();
-            }
+            get { return isExecuting; }
+            protected set { isExecuting = value; RaisePropertyChanged(); }
         }
+
 
         protected abstract Task ExecuteAsync(object parameter = null);
-
-        protected override void OnCanExecuteChanged()
-        {
-            RaisePropertyChanged(nameof(Execution));
-            base.OnCanExecuteChanged();
-        }
-
-        protected override void OnExecuted()
-        {
-            RaisePropertyChanged(nameof(Execution));
-            base.OnExecuted();
-        }
+        public override bool CanExecute(object parameter = null) => canExecuteWithParam?.Invoke(parameter) ?? CanExecute();
+        public bool CanExecute() => canExecute?.Invoke() ?? false;
 
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
