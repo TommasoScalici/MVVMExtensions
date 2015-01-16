@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace TommasoScalici.MVVMExtensions.Notifications
 {
-    public class ObservableTask : ObservableTaskBase, IObservableTask
+    public class ObservableTask : ObservableObject
     {
         public ObservableTask(Task task)
         {
@@ -11,27 +11,27 @@ namespace TommasoScalici.MVVMExtensions.Notifications
             TaskObserver = WatchTaskAsync(task);
         }
 
-        public override string ErrorMessage { get { return Exception?.InnerException?.Message; } }
-        public override AggregateException Exception { get { return Task.Exception; } }
-        public override Exception InnerException { get { return Exception?.InnerException; } }
-        public override bool IsCanceled { get { return Task.IsCanceled; } }
-        public override bool IsFaulted { get { return Task.IsFaulted; } }
-        public override bool IsNotCompleted { get { return !IsCompleted; } }
-        public override bool IsCompleted { get { return Task.IsCompleted; } }
-        public override bool IsRunning { get; protected set; }
-        public override bool IsSuccesfullyCompleted { get { return Status == TaskStatus.RanToCompletion; } }
-        public override TaskStatus Status { get { return Task.Status; } }
-        public override Task TaskObserver { get; protected set; }
+
+        public string ErrorMessage { get { return Exception?.InnerException?.Message; } }
+        public AggregateException Exception { get { return Task.Exception; } }
+        public Exception InnerException { get { return Exception?.InnerException; } }
+        public bool IsCanceled { get { return Task.IsCanceled; } }
+        public bool IsFaulted { get { return Task.IsFaulted; } }
+        public bool IsNotCompleted { get { return !IsCompleted; } }
+        public bool IsCompleted { get { return Task.IsCompleted; } }
+        public bool IsRunning { get; protected set; }
+        public bool IsSuccesfullyCompleted { get { return Status == TaskStatus.RanToCompletion; } }
+        public TaskStatus Status { get { return Task.Status; } }
+        public Task TaskObserver { get; protected set; }
         public Task Task { get; private set; }
 
 
-        private async Task WatchTaskAsync(Task task)
+        protected async Task WatchTaskAsync(Task task)
         {
             try
             {
                 IsRunning = true;
                 RaiseAllPropertyChanged();
-
                 await task;
                 IsRunning = false;
             }
@@ -48,48 +48,18 @@ namespace TommasoScalici.MVVMExtensions.Notifications
     }
 
 
-    public class ObservableTask<TResult> : ObservableTaskBase, IObservableTask<TResult>
+    public class ObservableTask<TResult> : ObservableTask
     {
+        private Task<TResult> task;
+
+
         public ObservableTask(Task<TResult> task)
+            : base(task)
         {
-            Task = task;
-            TaskObserver = WatchTaskAsync(task);
+            this.task = task;
         }
 
 
-        public override string ErrorMessage { get { return Exception?.InnerException?.Message; } }
-        public override AggregateException Exception { get { return Task.Exception; } }
-        public override Exception InnerException { get { return Exception?.InnerException; } }
-        public override bool IsCanceled { get { return Task.IsCanceled; } }
-        public override bool IsFaulted { get { return Task.IsFaulted; } }
-        public override bool IsNotCompleted { get { return !IsCompleted; } }
-        public override bool IsCompleted { get { return Task.IsCompleted; } }
-        public override bool IsRunning { get; protected set; }
-        public override bool IsSuccesfullyCompleted { get { return Status == TaskStatus.RanToCompletion; } }
-        public override TaskStatus Status { get { return Task.Status; } }
-        public override Task TaskObserver { get; protected set; }
-        public Task<TResult> Task { get; private set; }
-        public TResult Result { get { return Status == TaskStatus.RanToCompletion ? Task.Result : default(TResult); } }
-
-        private async Task WatchTaskAsync(Task task)
-        {
-            try
-            {
-                IsRunning = true;
-                RaiseAllPropertyChanged();
-
-                await task;
-                IsRunning = false;
-            }
-
-            catch
-            {
-            }
-
-            finally
-            {
-                RaiseAllPropertyChanged();
-            }
-        }
+        public TResult Result { get { return Status == TaskStatus.RanToCompletion ? task.Result : default(TResult); } }
     }
 }

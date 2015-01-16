@@ -47,10 +47,8 @@
     <Compile Include="Commands\IRelayCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\CommandEventArgs.cs" />
-    <Compile Include="Notifications\IObservableTask.cs" />
     <Compile Include="Notifications\ObservableObject.cs" />
     <Compile Include="Notifications\ObservableTask.cs" />
-    <Compile Include="Notifications\ObservableTaskBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

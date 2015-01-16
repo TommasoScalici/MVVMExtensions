@@ -7,6 +7,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
     {
         public event EventHandler CanExecuteChanged;
 
+
         public abstract bool CanExecute(object parameter);
         public abstract void Execute(object parameter, bool ignoreCanExecute = false);
         public void Execute(object parameter = null) => Execute(parameter, false);

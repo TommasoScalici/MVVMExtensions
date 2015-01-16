@@ -10,6 +10,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
     public class AsyncCommand : AsyncCommandBase, IAsyncCommand
     {
         private Func<CancellationToken, Task> execute;
+        private Func<object, bool> canExecute;
         private AsyncCancelCommand cancelCommand;
         private ObservableTask execution;
 
@@ -17,17 +18,31 @@ namespace TommasoScalici.MVVMExtensions.Commands
         public event EventHandler<AsyncCommandEventArgs> Executed;
 
 
-        public AsyncCommand(Func<CancellationToken, Task> execute, Func<bool> canExecute = null)
-            : base(canExecute)
+        public AsyncCommand(Func<Task> execute, Func<bool> canExecute = null)
         {
-            this.execute = execute;
+            this.execute = token => execute?.Invoke();
+            this.canExecute = canExecute == null ? new Func<object, bool>(x => true) : x => canExecute();
             cancelCommand = new AsyncCancelCommand();
         }
 
-        public AsyncCommand(Func<CancellationToken, Task> execute, Predicate<object> canExecuteWithParam)
-            : base(canExecuteWithParam)
+        public AsyncCommand(Func<Task> execute, Func<object, bool> canExecute)
+        {
+            this.execute = token => execute?.Invoke();
+            this.canExecute = canExecute;
+            cancelCommand = new AsyncCancelCommand();
+        }
+
+        public AsyncCommand(Func<CancellationToken, Task> execute, Func<bool> canExecute = null)
         {
             this.execute = execute;
+            this.canExecute = canExecute == null ? new Func<object, bool>(x => true) : x => canExecute();
+            cancelCommand = new AsyncCancelCommand();
+        }
+
+        public AsyncCommand(Func<CancellationToken, Task> execute, Func<object, bool> canExecute)
+        {
+            this.execute = execute;
+            this.canExecute = canExecute;
             cancelCommand = new AsyncCancelCommand();
         }
 
@@ -40,7 +55,9 @@ namespace TommasoScalici.MVVMExtensions.Commands
         }
 
 
-        public async override void Execute(object parameter = null, bool ignoreCanExecute = false)
+        public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;
+
+        public async override void Execute(object parameter, bool ignoreCanExecute = false)
         {
             if (ignoreCanExecute || CanExecute() || CanExecute(parameter))
             {
@@ -65,57 +82,73 @@ namespace TommasoScalici.MVVMExtensions.Commands
             Executed?.Invoke(this, e as AsyncCommandEventArgs);
             base.OnExecuted(e);
         }
-
     }
 
 
-    public class AsyncCommand<T> : AsyncCommandBase, IAsyncCommand<object, T>
+    public class AsyncCommand<TResult> : AsyncCommandBase, IAsyncCommand<TResult>
     {
-        private Func<CancellationToken, Task<T>> execute;
+        private Func<CancellationToken, Task<TResult>> execute;
+        private Func<object, bool> canExecute;
         private AsyncCancelCommand cancelCommand;
-        private ObservableTask<T> execution;
+        private ObservableTask<TResult> execution;
 
 
-        public event EventHandler<AsyncCommandEventArgs<object, T>> Executed;
+        public event EventHandler<AsyncCommandEventArgs<TResult>> Executed;
 
 
-        public AsyncCommand(Func<CancellationToken, Task<T>> execute, Func<bool> canExecute = null)
-            : base(canExecute)
+        public AsyncCommand(Func<Task<TResult>> execute, Func<bool> canExecute = null)
         {
-            this.execute = execute;
+            this.execute = token => execute?.Invoke();
+            this.canExecute = canExecute == null ? new Func<object, bool>(x => true) : x => canExecute();
             cancelCommand = new AsyncCancelCommand();
         }
 
-        public AsyncCommand(Func<CancellationToken, Task<T>> execute, Predicate<object> canExecuteWithParam)
-            : base(canExecuteWithParam)
+        public AsyncCommand(Func<Task<TResult>> execute, Func<object, bool> canExecute)
+        {
+            this.execute = token => execute?.Invoke();
+            this.canExecute = canExecute;
+            cancelCommand = new AsyncCancelCommand();
+        }
+
+        public AsyncCommand(Func<CancellationToken, Task<TResult>> execute, Func<bool> canExecute = null)
         {
             this.execute = execute;
+            this.canExecute = canExecute == null ? new Func<object, bool>(x => true) : x => canExecute();
+            cancelCommand = new AsyncCancelCommand();
+        }
+
+        public AsyncCommand(Func<CancellationToken, Task<TResult>> execute, Func<object, bool> canExecute)
+        {
+            this.execute = execute;
+            this.canExecute = canExecute;
             cancelCommand = new AsyncCancelCommand();
         }
 
 
         public override ICommand CancelCommand { get { return cancelCommand; } }
-        public ObservableTask<T> Execution
+        public ObservableTask<TResult> Execution
         {
             get { return execution; }
             protected set { execution = value; RaisePropertyChanged(); }
         }
 
 
-        public async override void Execute(object parameter = null, bool ignoreCanExecute = false)
+        public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;
+
+        public async override void Execute(object parameter, bool ignoreCanExecute = false)
         {
             if (ignoreCanExecute || CanExecute() || CanExecute(parameter))
             {
                 await ExecuteAsync(parameter);
-                OnExecuted(new AsyncCommandEventArgs<object, T>(Execution, (T)parameter));
+                OnExecuted(new AsyncCommandEventArgs<TResult>(Execution, parameter));
             }
         }
 
-        protected async override Task ExecuteAsync(object parameter = null)
+        protected override async Task ExecuteAsync(object parameter = null)
         {
             IsExecuting = true;
             cancelCommand.NotifyCommandStarted();
-            Execution = new ObservableTask<T>(execute?.Invoke(cancelCommand.Token));
+            Execution = new ObservableTask<TResult>(execute?.Invoke(cancelCommand.Token));
             RaiseCanExecuteChanged();
             await Execution.TaskObserver;
             cancelCommand.NotifyCommandFinished();
@@ -124,7 +157,85 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
         protected override void OnExecuted(EventArgs e)
         {
-            Executed?.Invoke(this, e as AsyncCommandEventArgs<object, T>);
+            Executed?.Invoke(this, e as AsyncCommandEventArgs<TResult>);
+            base.OnExecuted(e);
+        }
+    }
+
+
+    public class AsyncCommand<TParameter, TResult> : AsyncCommandBase, IAsyncCommand<TParameter, TResult>
+    {
+        private Func<CancellationToken, TParameter, Task<TResult>> execute;
+        private Func<object, bool> canExecute;
+        private AsyncCancelCommand cancelCommand;
+        private ObservableTask<TResult> execution;
+
+
+        public event EventHandler<AsyncCommandEventArgs<TParameter, TResult>> Executed;
+
+
+        public AsyncCommand(Func<TParameter, Task<TResult>> execute, Func<bool> canExecute = null)
+        {
+            this.execute = (token, parameter) => execute?.Invoke(parameter);
+            this.canExecute = canExecute == null ? new Func<object, bool>(x => true) : x => canExecute();
+            cancelCommand = new AsyncCancelCommand();
+        }
+
+        public AsyncCommand(Func<TParameter, Task<TResult>> execute, Func<object, bool> canExecute)
+        {
+            this.execute = (token, parameter) => execute?.Invoke(parameter);
+            this.canExecute = canExecute;
+            cancelCommand = new AsyncCancelCommand();
+        }
+
+        public AsyncCommand(Func<CancellationToken, TParameter, Task<TResult>> execute, Func<bool> canExecute = null)
+        {
+            this.execute = execute;
+            this.canExecute = canExecute == null ? new Func<object, bool>(x => true) : x => canExecute();
+            cancelCommand = new AsyncCancelCommand();
+        }
+
+        public AsyncCommand(Func<CancellationToken, TParameter, Task<TResult>> execute, Func<object, bool> canExecute)
+        {
+            this.execute = execute;
+            this.canExecute = canExecute;
+            cancelCommand = new AsyncCancelCommand();
+        }
+
+
+        public override ICommand CancelCommand { get { return cancelCommand; } }
+        public ObservableTask<TResult> Execution
+        {
+            get { return execution; }
+            protected set { execution = value; RaisePropertyChanged(); }
+        }
+
+
+        public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;
+
+        public async override void Execute(object parameter, bool ignoreCanExecute = false)
+        {
+            if (ignoreCanExecute || CanExecute() || CanExecute(parameter))
+            {
+                await ExecuteAsync(parameter);
+                OnExecuted(new AsyncCommandEventArgs<TParameter, TResult>(Execution, (TParameter)parameter));
+            }
+        }
+
+        protected override async Task ExecuteAsync(object parameter = null)
+        {
+            IsExecuting = true;
+            cancelCommand.NotifyCommandStarted();
+            Execution = new ObservableTask<TResult>(execute?.Invoke(cancelCommand.Token, (TParameter)parameter));
+            RaiseCanExecuteChanged();
+            await Execution.TaskObserver;
+            cancelCommand.NotifyCommandFinished();
+            IsExecuting = false;
+        }
+
+        protected override void OnExecuted(EventArgs e)
+        {
+            Executed?.Invoke(this, e as AsyncCommandEventArgs<TParameter, TResult>);
             base.OnExecuted(e);
         }
     }

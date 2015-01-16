@@ -13,7 +13,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
         public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
-            this.execute = x => execute();
+            this.execute = x => execute?.Invoke();
             this.canExecute = canExecute == null ? new Func<object, bool>(x => true) : x => canExecute();
         }
 
@@ -25,7 +25,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
         public RelayCommand(Action execute, Func<object, bool> canExecute)
         {
-            this.execute = x => execute();
+            this.execute = x => execute?.Invoke();
             this.canExecute = canExecute;
         }
 

@@ -10,8 +10,18 @@ namespace TommasoScalici.MVVMExtensions.Commands
     {
         event EventHandler<AsyncCommandEventArgs> Executed;
 
-        ICommand CancelCommand { get; }
+
         ObservableTask Execution { get; }
+        bool IsExecuting { get; }
+    }
+
+
+    public interface IAsyncCommand<T> : ICommand, INotifyPropertyChanged
+    {
+        event EventHandler<AsyncCommandEventArgs<T>> Executed;
+
+
+        ObservableTask<T> Execution { get; }
         bool IsExecuting { get; }
     }
 
@@ -20,7 +30,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
     {
         event EventHandler<AsyncCommandEventArgs<TParameter, TResult>> Executed;
 
-        ICommand CancelCommand { get; }
+
         ObservableTask<TResult> Execution { get; }
         bool IsExecuting { get; }
     }
