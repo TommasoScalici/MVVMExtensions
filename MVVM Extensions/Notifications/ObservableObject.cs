@@ -2,9 +2,11 @@
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace TommasoScalici.MVVMExtensions.Notifications
 {
+    [DataContract]
     public class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -18,32 +20,21 @@ namespace TommasoScalici.MVVMExtensions.Notifications
         /// Raise the <see cref="PropertyChanged"/> event for the named property.
         /// </summary>
         /// <param name="propertyName">The name of the property of which <see cref="PropertyChanged"/> event will be raised.</param>
-        /// <param name="broadcast">If true, it will raise <see cref="PropertyChanged"/> recursively for all <see cref="ObservableObject"/>.</param>
-        public void RaisePropertyChanged([CallerMemberName] string propertyName = null, bool broadcast = false)
+        public void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             if (IsNotifying)
-            {
                 OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-
-                if (broadcast)
-                {
-                    foreach (var property in GetType().GetRuntimeProperties())
-                        if (property.PropertyType.GetTypeInfo().IsSubclassOf(typeof(ObservableObject)))
-                            RaisePropertyChanged(property.Name, broadcast);
-                }
-            }
         }
 
         /// <summary>
         /// Raise the <see cref="PropertyChanged"/> event for all properties on this <see cref="ObservableObject"/>.
         /// </summary>
-        /// <param name="broadcast">If true, it will raise <see cref="PropertyChanged"/> recursively for all <see cref="ObservableObject"/>.</param>
-        public void RaiseAllPropertyChanged(bool broadcast = false)
+        public void RaiseAllPropertyChanged()
         {
             if (IsNotifying)
             {
                 foreach (var property in GetType().GetRuntimeProperties())
-                    RaisePropertyChanged(property.Name, broadcast);
+                    RaisePropertyChanged(property.Name);
             }
         }
 
@@ -61,9 +52,7 @@ namespace TommasoScalici.MVVMExtensions.Notifications
                 return false;
 
             field = newValue;
-
             RaisePropertyChanged(propertyName);
-
             return true;
         }
 

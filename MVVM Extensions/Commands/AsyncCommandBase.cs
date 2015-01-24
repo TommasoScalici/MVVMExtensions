@@ -1,31 +1,29 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace TommasoScalici.MVVMExtensions.Commands
 {
-    public abstract class AsyncCommandBase : CommandBase, INotifyPropertyChanged
+    public abstract class AsyncCommandBase : CommandBase
     {
+        private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private bool isExecuting;
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public bool IsExecuting { get { return isExecuting; } set { Set(ref isExecuting, value); } }
+        public CancellationToken CancellationToken { get { return cancellationTokenSource.Token; } }
+        public ICommand CancelCommand { get { return new AsyncCancelCommand(this) { Token = CancellationToken }; } }
 
 
-        public abstract ICommand CancelCommand { get; }
-        public virtual bool IsExecuting
+        public void Cancel()
         {
-            get { return isExecuting; }
-            protected set { isExecuting = value; RaisePropertyChanged(); }
+            cancellationTokenSource.Cancel();
         }
 
-
-        protected abstract Task ExecuteAsync(object parameter = null);
-
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual async Task ExecuteAsync(object parameter = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            cancellationTokenSource = new CancellationTokenSource();
+            await Task.Yield();
         }
     }
 }

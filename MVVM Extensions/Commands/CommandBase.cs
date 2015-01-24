@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Windows.Input;
 
+using TommasoScalici.MVVMExtensions.Notifications;
+
 namespace TommasoScalici.MVVMExtensions.Commands
 {
-    public abstract class CommandBase : ICommand
+    public abstract class CommandBase : ObservableObject, ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -15,4 +17,5 @@ namespace TommasoScalici.MVVMExtensions.Commands
         protected virtual void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         protected virtual void OnExecuted(EventArgs e) => RaiseCanExecuteChanged();
     }
+
 }

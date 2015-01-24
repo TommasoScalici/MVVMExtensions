@@ -6,42 +6,29 @@ namespace TommasoScalici.MVVMExtensions.Commands
 {
     internal sealed class AsyncCancelCommand : ICommand
     {
-        private bool commandExecuting;
-        private CancellationTokenSource cts = new CancellationTokenSource();
+        private AsyncCommandBase asyncCommandBase;
+
+        public AsyncCancelCommand(AsyncCommandBase command)
+        {
+            asyncCommandBase = command;
+            asyncCommandBase.PropertyChanged += (sender, e) => CanExecuteChanged(this, EventArgs.Empty);
+        }
+
+
+        public CancellationToken Token { get; set; }
 
 
         public event EventHandler CanExecuteChanged;
 
 
-        public CancellationToken Token { get { return cts.Token; } }
-
-
         public bool CanExecute(object parameter = null)
         {
-            return commandExecuting && !cts.IsCancellationRequested;
+            return asyncCommandBase.IsExecuting && !Token.IsCancellationRequested;
         }
 
         public void Execute(object parameter = null)
         {
-            cts.Cancel();
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void NotifyCommandStarted()
-        {
-            commandExecuting = true;
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-
-            if (cts.IsCancellationRequested)
-            {
-                cts = new CancellationTokenSource();
-                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public void NotifyCommandFinished()
-        {
-            commandExecuting = false;
+            asyncCommandBase?.Cancel();
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
