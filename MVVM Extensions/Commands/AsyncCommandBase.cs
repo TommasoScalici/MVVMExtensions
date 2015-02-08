@@ -9,12 +9,22 @@ namespace TommasoScalici.MVVMExtensions.Commands
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private bool isExecuting;
 
-
-        public bool IsExecuting { get { return isExecuting; } set { Set(ref isExecuting, value); } }
+        /// <summary>
+        /// Return true if the <see cref="ObservableTask"/> <see cref="Execution"/> associated with the command is currently executing.
+        /// </summary>
+        public bool IsExecuting { get { return isExecuting; } protected set { Set(ref isExecuting, value); } }
+        /// <summary>
+        /// The <see cref="System.Threading.CancellationToken"/> bound to the inner <see cref="Task"/> associated with the command.
+        /// </summary>
         public CancellationToken CancellationToken { get { return cancellationTokenSource.Token; } }
+        /// <summary>
+        /// Execute this command to send a <see cref="Cancel"/> request to the <see cref="ObservableTask"/> <see cref="Execution"/> associated with the <see cref="AsyncCommand"/>.
+        /// </summary>
         public ICommand CancelCommand { get { return new AsyncCancelCommand(this) { Token = CancellationToken }; } }
 
-
+        /// <summary>
+        /// Call the <see cref="System.Threading.CancellationTokenSource.Cancel"/> for the <see cref="CancellationTokenSource"/> bound to the inner <see cref="Task"/> associated with the command.
+        /// </summary>
         public void Cancel()
         {
             cancellationTokenSource.Cancel();

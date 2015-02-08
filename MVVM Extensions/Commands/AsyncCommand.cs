@@ -12,7 +12,9 @@ namespace TommasoScalici.MVVMExtensions.Commands
         private Func<object, bool> canExecute;
         private ObservableTask execution;
 
-
+        /// <summary>
+        /// Raised after the command has executed.
+        /// </summary>
         public event EventHandler<AsyncCommandEventArgs> Executed;
 
 
@@ -79,7 +81,9 @@ namespace TommasoScalici.MVVMExtensions.Commands
         private Func<object, bool> canExecute;
         private ObservableTask<TResult> execution;
 
-
+        /// <summary>
+        /// Raised after the command has executed.
+        /// </summary>
         public event EventHandler<AsyncCommandEventArgs<TResult>> Executed;
 
 

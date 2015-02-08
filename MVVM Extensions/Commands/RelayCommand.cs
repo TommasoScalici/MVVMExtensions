@@ -7,7 +7,9 @@ namespace TommasoScalici.MVVMExtensions.Commands
         private readonly Action<object> execute;
         private readonly Func<object, bool> canExecute;
 
-
+        /// <summary>
+        /// Raised after the command has executed.
+        /// </summary>
         public event EventHandler<CommandEventArgs> Executed;
 
 
@@ -61,7 +63,9 @@ namespace TommasoScalici.MVVMExtensions.Commands
         private readonly Action<T> execute;
         private readonly Func<T, bool> canExecute;
 
-
+        /// <summary>
+        /// Raised after the command has executed.
+        /// </summary>
         public event EventHandler<CommandEventArgs<T>> Executed;
 
 

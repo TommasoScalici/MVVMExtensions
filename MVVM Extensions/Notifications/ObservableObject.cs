@@ -6,13 +6,16 @@ using System.Runtime.Serialization;
 
 namespace TommasoScalici.MVVMExtensions.Notifications
 {
+    /// <summary>
+    /// Simple implementation of the <see cref="INotifyPropertyChanged"/> interface. Extend this class to have a bindable ready to use object. Use <see cref="RaisePropertyChanged(string)"/> and <see cref="Set{T}(ref T, T, string)"/> methods to refresh/notify your properties back to the UI. The class has the <see cref="DataContractAttribute"/> applied so you can also easily serialize objects derived from it.
+    /// </summary>
     [DataContract]
     public class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Gets or sets the property notification for this object.
+        /// Gets or sets the status (enabled / disabled) of property notification for this object.
         /// </summary>
         public bool IsNotifying { get; set; } = true;
 
@@ -27,7 +30,7 @@ namespace TommasoScalici.MVVMExtensions.Notifications
         }
 
         /// <summary>
-        /// Raise the <see cref="PropertyChanged"/> event for all properties on this <see cref="ObservableObject"/>.
+        /// Raise the <see cref="PropertyChanged"/> event for all properties on the <see cref="ObservableObject"/>.
         /// </summary>
         public void RaiseAllPropertyChanged()
         {

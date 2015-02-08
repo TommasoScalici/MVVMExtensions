@@ -59,7 +59,9 @@ namespace TommasoScalici.MVVMExtensions.Notifications
             this.task = task;
         }
 
-
+        /// <summary>
+        /// Gets the result value of the inner <see cref="Task{TResult}"/>.
+        /// </summary>
         public TResult Result { get { return Status == TaskStatus.RanToCompletion ? task.Result : default(TResult); } }
     }
 }

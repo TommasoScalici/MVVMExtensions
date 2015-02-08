@@ -7,6 +7,9 @@ namespace TommasoScalici.MVVMExtensions.Commands
 {
     public abstract class CommandBase : ObservableObject, ICommand
     {
+        /// <summary>
+        /// Raised when the binding with the command needs to be refreshed to reflect changes on the UI.
+        /// </summary>
         public event EventHandler CanExecuteChanged;
 
 
