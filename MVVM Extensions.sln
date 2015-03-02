@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22310.1
+VisualStudioVersion = 14.0.22609.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMExtensions", "MVVM Extensions\MVVMExtensions.csproj", "{AAF582CF-8246-4151-9692-AC73C92C0598}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMExtensions.Universal", "MVVMExtensions.Universal\MVVMExtensions.Universal.csproj", "{857A66C0-1CEC-42B9-BBB5-6BF21482305F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{AAF582CF-8246-4151-9692-AC73C92C0598}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAF582CF-8246-4151-9692-AC73C92C0598}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAF582CF-8246-4151-9692-AC73C92C0598}.Release|Any CPU.Build.0 = Release|Any CPU
+		{857A66C0-1CEC-42B9-BBB5-6BF21482305F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{857A66C0-1CEC-42B9-BBB5-6BF21482305F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{857A66C0-1CEC-42B9-BBB5-6BF21482305F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{857A66C0-1CEC-42B9-BBB5-6BF21482305F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
