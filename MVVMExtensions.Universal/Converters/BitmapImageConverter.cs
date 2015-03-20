@@ -3,7 +3,7 @@
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace MVVMExtensions.Universal.Converters
+namespace TommasoScalici.MVVMExtensions.Universal.Converters
 {
     /// <summary>
     /// Value converter that generate a BitmapImage from a String or Uri path.

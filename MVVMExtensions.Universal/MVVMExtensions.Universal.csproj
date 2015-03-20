@@ -8,7 +8,7 @@
     <ProjectGuid>{857A66C0-1CEC-42B9-BBB5-6BF21482305F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MVVMExtensions.Universal</RootNamespace>
+    <RootNamespace>TommasoScalici.MVVMExtensions.Universal</RootNamespace>
     <AssemblyName>MVVMExtensions.Universal</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>

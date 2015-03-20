@@ -2,7 +2,7 @@
 
 namespace TommasoScalici.MVVMExtensions
 {
-    [AttributeUsage(AttributeTargets.Enum, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
     public sealed class StringValueAttribute : Attribute
     {
         private readonly string value;

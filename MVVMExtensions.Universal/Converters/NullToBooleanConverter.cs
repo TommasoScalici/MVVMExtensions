@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Data;
 
-namespace MyAnimeList.Converters
+namespace  TommasoScalici.MVVMExtensions.Universal.Converters
 {
     /// <summary>
     /// Value converter that translates a null object to false and not null object to true.
