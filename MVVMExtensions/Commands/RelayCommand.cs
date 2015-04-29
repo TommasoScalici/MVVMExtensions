@@ -7,11 +7,6 @@ namespace TommasoScalici.MVVMExtensions.Commands
         private readonly Action<object> execute;
         private readonly Func<object, bool> canExecute;
 
-        /// <summary>
-        /// Raised after the command has executed.
-        /// </summary>
-        public event EventHandler<CommandEventArgs> Executed;
-
 
         public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
@@ -36,6 +31,12 @@ namespace TommasoScalici.MVVMExtensions.Commands
             this.execute = execute;
             this.canExecute = canExecute;
         }
+
+
+        /// <summary>
+        /// Raised after the command has executed.
+        /// </summary>
+        public event EventHandler<CommandEventArgs> Executed;
 
 
         public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;
@@ -63,17 +64,18 @@ namespace TommasoScalici.MVVMExtensions.Commands
         private readonly Action<T> execute;
         private readonly Func<T, bool> canExecute;
 
-        /// <summary>
-        /// Raised after the command has executed.
-        /// </summary>
-        public event EventHandler<CommandEventArgs<T>> Executed;
-
 
         public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
         {
             this.execute = execute;
             this.canExecute = canExecute ?? new Func<T, bool>(x => true);
         }
+
+
+        /// <summary>
+        /// Raised after the command has executed.
+        /// </summary>
+        public event EventHandler<CommandEventArgs<T>> Executed;
 
 
         public override bool CanExecute(object parameter = null) => canExecute?.Invoke((T)parameter) ?? false;

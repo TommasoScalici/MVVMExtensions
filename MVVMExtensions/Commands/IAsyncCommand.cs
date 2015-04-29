@@ -13,6 +13,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
         /// </summary>
         event EventHandler<AsyncCommandEventArgs> Executed;
 
+
         ObservableTask Execution { get; }
         bool IsExecuting { get; }
     }

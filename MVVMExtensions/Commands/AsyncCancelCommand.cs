@@ -8,6 +8,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
     {
         private AsyncCommandBase asyncCommandBase;
 
+
         public AsyncCancelCommand(AsyncCommandBase command)
         {
             asyncCommandBase = command;
@@ -15,10 +16,10 @@ namespace TommasoScalici.MVVMExtensions.Commands
         }
 
 
-        public CancellationToken Token { get; set; }
-
-
         public event EventHandler CanExecuteChanged;
+
+
+        public CancellationToken Token { get; set; }
 
 
         public bool CanExecute(object parameter = null)

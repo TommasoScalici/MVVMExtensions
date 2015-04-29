@@ -14,10 +14,12 @@ namespace TommasoScalici.MVVMExtensions.Notifications
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+
         /// <summary>
         /// Gets or sets the status (enabled / disabled) of property notification for this object.
         /// </summary>
         public bool IsNotifying { get; set; } = true;
+
 
         /// <summary>
         /// Raise the <see cref="PropertyChanged"/> event for the named property.
