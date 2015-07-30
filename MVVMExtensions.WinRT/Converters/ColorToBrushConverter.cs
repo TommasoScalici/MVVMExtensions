@@ -5,7 +5,7 @@ using Windows.UI;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
-namespace TommasoScalici.MVVMExtensions.WinRT.Converters
+namespace TommasoScalici.MVVMExtensions.Universal.Converters
 {
     /// <summary>
     /// Value converter that translates an hexadecimal <see cref="string"/> or a <see cref="Color"/> to a <see cref="SolidColorBrush"/>.

@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Data;
 
-namespace  TommasoScalici.MVVMExtensions.WinRT.Converters
+namespace  TommasoScalici.MVVMExtensions.Universal.Converters
 {
     /// <summary>
     /// Value converter that translates <see cref="bool"/> values to <see cref="double"/> (<see cref="UIElement"/> opacity).
