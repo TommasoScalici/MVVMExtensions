@@ -3,7 +3,7 @@ using System.Globalization;
 
 using Windows.UI.Xaml.Data;
 
-namespace  TommasoScalici.MVVMExtensions.Universal.Converters
+namespace  TommasoScalici.MVVMExtensions.WinRT.Converters
 {
     /// <summary>
     /// Value converter that translates a <see cref="DateTime"/> or a <see cref="DateTimeOffset"/> to a localized <see cref="string"/> that can be also formatted passing a string fomat as a parameter. Returns "???" if the conversion fails for any reason.

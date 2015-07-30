@@ -3,7 +3,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace  TommasoScalici.MVVMExtensions.Universal.Converters
+namespace  TommasoScalici.MVVMExtensions.WinRT.Converters
 {
     /// <summary>
     /// Value converter that translates true to <see cref="Visibility.Visible"/> and false to <see cref="Visibility.Collapsed"/>.

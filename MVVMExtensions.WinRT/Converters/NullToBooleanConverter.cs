@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Data;
 
-namespace  TommasoScalici.MVVMExtensions.Universal.Converters
+namespace  TommasoScalici.MVVMExtensions.WinRT.Converters
 {
     /// <summary>
     /// Value converter that translates a null object to false and not null object to true.
