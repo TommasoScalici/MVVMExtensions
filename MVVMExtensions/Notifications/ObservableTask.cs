@@ -50,7 +50,7 @@ namespace TommasoScalici.MVVMExtensions.Notifications
 
     public class ObservableTask<TResult> : ObservableTask
     {
-        private Task<TResult> task;
+        Task<TResult> task;
 
 
         public ObservableTask(Task<TResult> task)

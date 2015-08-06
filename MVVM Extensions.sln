@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMExtensions", "MVVMExtensions\MVVMExtensions.csproj", "{C497C188-A4F2-46AE-8F53-F1449398AAF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMExtensions.Universal", "MVVMExtensions.WinRT\MVVMExtensions.Universal.csproj", "{BDF0A546-6B9C-4CA7-9FCE-A23DC5DDB56E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMExtensions.Universal", "MVVMExtensions.Universal\MVVMExtensions.Universal.csproj", "{BDF0A546-6B9C-4CA7-9FCE-A23DC5DDB56E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

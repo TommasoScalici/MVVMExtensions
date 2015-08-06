@@ -11,7 +11,7 @@ namespace  TommasoScalici.MVVMExtensions.Universal.Converters
     /// </summary>
     public sealed class ResourceStringConverter : IValueConverter
     {
-        private static readonly ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView();
+        static readonly ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView();
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {

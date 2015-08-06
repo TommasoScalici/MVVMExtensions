@@ -4,8 +4,8 @@ namespace TommasoScalici.MVVMExtensions.Commands
 {
     public class RelayCommand : CommandBase, IRelayCommand
     {
-        private readonly Action<object> execute;
-        private readonly Func<object, bool> canExecute;
+        readonly Action<object> execute;
+        readonly Func<object, bool> canExecute;
 
 
         public RelayCommand(Action execute, Func<bool> canExecute = null)
@@ -61,8 +61,8 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
     public class RelayCommand<T> : CommandBase, IRelayCommand<T>
     {
-        private readonly Action<T> execute;
-        private readonly Func<T, bool> canExecute;
+        readonly Action<T> execute;
+        readonly Func<T, bool> canExecute;
 
 
         public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)

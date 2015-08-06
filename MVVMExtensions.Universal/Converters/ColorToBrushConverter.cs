@@ -31,9 +31,9 @@ namespace TommasoScalici.MVVMExtensions.Universal.Converters
             throw new NotImplementedException();
         }
 
-        private static Color Parse(string color)
+        static Color Parse(string color)
         {
-            var offset = color.StartsWith("#") ? 1 : 0;
+            var offset = color.StartsWith("#", StringComparison.Ordinal) ? 1 : 0;
 
             var a = Byte.Parse(color.Substring(0 + offset, 2), NumberStyles.HexNumber);
             var r = Byte.Parse(color.Substring(2 + offset, 2), NumberStyles.HexNumber);

@@ -5,7 +5,7 @@ namespace TommasoScalici.MVVMExtensions
     [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
     public sealed class StringValueAttribute : Attribute
     {
-        private readonly string value;
+        readonly string value;
 
 
         public StringValueAttribute(string value)

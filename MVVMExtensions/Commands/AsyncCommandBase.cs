@@ -6,8 +6,15 @@ namespace TommasoScalici.MVVMExtensions.Commands
 {
     public abstract class AsyncCommandBase : CommandBase
     {
-        private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        private bool isExecuting;
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        ICommand cancelCommand;
+        bool isExecuting;
+
+
+        public AsyncCommandBase()
+        {
+            cancelCommand = new AsyncCancelCommand(this);
+        }
 
 
         /// <summary>
@@ -21,7 +28,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
         /// <summary>
         /// Execute this command to send a <see cref="Cancel"/> request to the <see cref="ObservableTask"/> <see cref="Execution"/> associated with the <see cref="AsyncCommand"/>.
         /// </summary>
-        public ICommand CancelCommand { get { return new AsyncCancelCommand(this) { Token = CancellationToken }; } }
+        public ICommand CancelCommand { get { return cancelCommand; } }
 
 
         /// <summary>

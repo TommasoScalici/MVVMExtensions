@@ -4,22 +4,22 @@ using System.Windows.Input;
 
 namespace TommasoScalici.MVVMExtensions.Commands
 {
-    internal sealed class AsyncCancelCommand : ICommand
+    sealed class AsyncCancelCommand : ICommand
     {
-        private AsyncCommandBase asyncCommandBase;
+        AsyncCommandBase asyncCommandBase;
 
 
         public AsyncCancelCommand(AsyncCommandBase command)
         {
             asyncCommandBase = command;
-            asyncCommandBase.PropertyChanged += (sender, e) => CanExecuteChanged(this, EventArgs.Empty);
+            asyncCommandBase.PropertyChanged += (sender, e) => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
 
         public event EventHandler CanExecuteChanged;
 
 
-        public CancellationToken Token { get; set; }
+        public CancellationToken Token { get { return asyncCommandBase.CancellationToken; } }
 
 
         public bool CanExecute(object parameter = null)
