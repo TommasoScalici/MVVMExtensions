@@ -16,6 +16,10 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,7 +52,6 @@
     <Compile Include="Notifications\IObservableTask.cs" />
     <Compile Include="Notifications\ObservableObject.cs" />
     <Compile Include="Notifications\ObservableTask.cs" />
-    <Compile Include="Notifications\ObservableTaskBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringValueAttribute.cs" />
   </ItemGroup>

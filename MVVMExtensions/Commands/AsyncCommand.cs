@@ -63,8 +63,11 @@ namespace TommasoScalici.MVVMExtensions.Commands
             IsExecuting = true;
             Execution = new ObservableTask(execute?.Invoke(CancellationToken));
             RaiseCanExecuteChanged();
+
             await Execution.TaskObserver;
             IsExecuting = false;
+            RaiseCanExecuteChanged();
+
             await base.ExecuteAsync(parameter);
         }
 
@@ -134,8 +137,11 @@ namespace TommasoScalici.MVVMExtensions.Commands
             IsExecuting = true;
             Execution = new ObservableTask<TResult>(execute?.Invoke(CancellationToken));
             RaiseCanExecuteChanged();
+
             await Execution.TaskObserver;
             IsExecuting = false;
+            RaiseCanExecuteChanged();
+
             await base.ExecuteAsync(parameter);
         }
 
@@ -201,8 +207,11 @@ namespace TommasoScalici.MVVMExtensions.Commands
             IsExecuting = true;
             Execution = new ObservableTask<TResult>(execute?.Invoke(CancellationToken, (TParameter)parameter));
             RaiseCanExecuteChanged();
+
             await Execution.TaskObserver;
             IsExecuting = false;
+            RaiseCanExecuteChanged();
+
             await base.ExecuteAsync(parameter);
         }
 

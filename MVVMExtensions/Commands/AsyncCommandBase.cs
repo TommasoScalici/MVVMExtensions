@@ -11,7 +11,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
         bool isExecuting;
 
 
-        public AsyncCommandBase()
+        protected AsyncCommandBase()
         {
             cancelCommand = new AsyncCancelCommand(this);
         }

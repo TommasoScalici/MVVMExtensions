@@ -7,9 +7,9 @@ namespace TommasoScalici.MVVMExtensions
     {
         public static string GetStringValue(Enum @enum)
         {
-            Type type = @enum.GetType();
-            FieldInfo fi = type.GetRuntimeField(@enum.ToString());
-            StringValueAttribute stringValue = fi.GetCustomAttribute<StringValueAttribute>();
+            var type = @enum.GetType();
+            var fieldInfo = type.GetRuntimeField(@enum.ToString());
+            var stringValue = fieldInfo.GetCustomAttribute<StringValueAttribute>();
 
             if (stringValue != null)
                 return stringValue.StringValue;
