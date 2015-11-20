@@ -8,7 +8,7 @@ namespace TommasoScalici.MVVMExtensions.Notifications
         public ObservableTask(Task task)
         {
             Task = task;
-            TaskObserver = task.ContinueWith(t => RaiseAllPropertyChanged());
+            TaskObserver = task.ContinueWith(t => RaiseAllPropertyChanged(), TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         public string ErrorMessage { get { return Exception?.InnerException?.Message; } }
@@ -30,7 +30,7 @@ namespace TommasoScalici.MVVMExtensions.Notifications
         public ObservableTask(Task<TResult> task)
         {
             Task = task;
-            TaskObserver = task.ContinueWith(t => RaiseAllPropertyChanged());
+            TaskObserver = task.ContinueWith(t => RaiseAllPropertyChanged(), TaskScheduler.FromCurrentSynchronizationContext());
         }
 
 
