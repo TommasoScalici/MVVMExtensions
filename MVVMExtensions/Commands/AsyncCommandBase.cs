@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+using TommasoScalici.MVVMExtensions.Notifications;
+
 namespace TommasoScalici.MVVMExtensions.Commands
 {
     public abstract class AsyncCommandBase : CommandBase
@@ -18,7 +20,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
 
         /// <summary>
-        /// Return true if the <see cref="ObservableTask"/> <see cref="Execution"/> associated with the command is currently executing.
+        /// Return true if the asynchronous <see cref="Task"/> associated with the command is currently executing.
         /// </summary>
         public bool IsExecuting { get { return isExecuting; } protected set { Set(ref isExecuting, value); } }
         /// <summary>
@@ -26,13 +28,15 @@ namespace TommasoScalici.MVVMExtensions.Commands
         /// </summary>
         public CancellationToken CancellationToken { get { return cancellationTokenSource.Token; } }
         /// <summary>
-        /// Execute this command to send a <see cref="Cancel"/> request to the <see cref="ObservableTask"/> <see cref="Execution"/> associated with the <see cref="AsyncCommand"/>.
+        /// You have to execute this command to send a <see cref="Cancel"/> request to the <see cref="Task"/> associated
+        /// with the <see cref="AsyncCommand"/>.
         /// </summary>
         public ICommand CancelCommand { get { return cancelCommand; } }
 
 
         /// <summary>
-        /// Call the <see cref="System.Threading.CancellationTokenSource.Cancel"/> for the <see cref="CancellationTokenSource"/> bound to the inner <see cref="Task"/> associated with the command.
+        /// Call the <see cref="System.Threading.CancellationTokenSource.Cancel"/> for the <see cref="CancellationTokenSource"/> bound to
+        /// the inner <see cref="Task"/> associated with the command.
         /// </summary>
         public void Cancel()
         {

@@ -6,7 +6,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
 {
     sealed class AsyncCancelCommand : ICommand
     {
-        AsyncCommandBase asyncCommandBase;
+        readonly AsyncCommandBase asyncCommandBase;
 
 
         public AsyncCancelCommand(AsyncCommandBase command)

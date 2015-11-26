@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
@@ -10,6 +11,7 @@ namespace TommasoScalici.MVVMExtensions.Universal.Converters
     /// </summary>
     public sealed class BitmapImageConverter : IValueConverter
     {
+        [SuppressMessage("Warning", "CS1591")]
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is string)
@@ -21,6 +23,8 @@ namespace TommasoScalici.MVVMExtensions.Universal.Converters
             throw new NotSupportedException();
         }
 
+        [SuppressMessage("Message", "RECS0083")]
+        [SuppressMessage("Warning", "CS1591")]
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

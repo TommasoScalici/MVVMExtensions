@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 using Windows.UI.Xaml.Data;
@@ -6,10 +7,12 @@ using Windows.UI.Xaml.Data;
 namespace  TommasoScalici.MVVMExtensions.Universal.Converters
 {
     /// <summary>
-    /// Value converter that translates a <see cref="DateTime"/> or a <see cref="DateTimeOffset"/> to a localized <see cref="string"/> that can be also formatted passing a string fomat as a parameter. Returns "???" if the conversion fails for any reason.
+    /// Value converter that translates a <see cref="DateTime"/> or a <see cref="DateTimeOffset"/> to a localized <see cref="string"/>
+    /// that can be also formatted passing a string fomat as a parameter. Returns "???" if the conversion fails for any reason.
     /// </summary>
     public sealed class DateTimeToLocalizedStringConverter : IValueConverter
     {
+        [SuppressMessage("Warning", "CS1591")]
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             string convertedValue;
@@ -37,6 +40,7 @@ namespace  TommasoScalici.MVVMExtensions.Universal.Converters
             return "???";
         }
 
+        [SuppressMessage("Warning", "CS1591")]
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             return DateTime.Parse(value.ToString(), DateTimeFormatInfo.CurrentInfo);

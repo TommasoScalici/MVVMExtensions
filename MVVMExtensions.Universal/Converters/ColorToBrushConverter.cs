@@ -1,17 +1,21 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 using Windows.UI;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
+
 namespace TommasoScalici.MVVMExtensions.Universal.Converters
 {
     /// <summary>
     /// Value converter that translates an hexadecimal <see cref="string"/> or a <see cref="Color"/> to a <see cref="SolidColorBrush"/>.
     /// </summary>
+    [SuppressMessage("Warning", "CS0419")]
     public sealed class ColorToBrushConverter : IValueConverter
     {
+        [SuppressMessage("Warning", "CS1591")]
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value == null)
@@ -26,11 +30,14 @@ namespace TommasoScalici.MVVMExtensions.Universal.Converters
             throw new NotSupportedException("ColorToBurshConverter only supports converting from Color and String.");
         }
 
+        [SuppressMessage("Message", "RECS0083")]
+        [SuppressMessage("Warning", "CS1591")]
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }
 
+        [SuppressMessage("Warning", "CS1591")]
         static Color Parse(string color)
         {
             var offset = color.StartsWith("#", StringComparison.Ordinal) ? 1 : 0;

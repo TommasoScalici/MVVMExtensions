@@ -93,7 +93,6 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
 
         public AsyncCommand(Func<Task<TResult>> execute, Func<bool> canExecute = null)
-            : base()
         {
             this.execute = token => execute?.Invoke();
             this.canExecute = canExecute == null ? new Func<object, bool>(x => true) : x => canExecute();
