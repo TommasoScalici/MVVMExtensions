@@ -10,7 +10,6 @@ namespace TommasoScalici.MVVMExtensions.Commands
     {
         Func<CancellationToken, Task> execute;
         Func<object, bool> canExecute;
-        ObservableTask execution;
 
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
         }
 
 
-        public ObservableTask Execution { get { return execution; } protected set { Set(ref execution, value); } }
+        public ObservableTask Execution { get { return Read<ObservableTask>(); } protected set { Write(value); } }
 
 
         public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;
@@ -83,7 +82,6 @@ namespace TommasoScalici.MVVMExtensions.Commands
     {
         Func<CancellationToken, Task<TResult>> execute;
         Func<object, bool> canExecute;
-        ObservableTask<TResult> execution;
 
 
         /// <summary>
@@ -117,7 +115,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
         }
 
 
-        public ObservableTask<TResult> Execution { get { return execution; } protected set { Set(ref execution, value); } }
+        public ObservableTask<TResult> Execution { get { return Read<ObservableTask<TResult>>(); } protected set { Write(value); } }
 
 
         public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;
@@ -156,7 +154,6 @@ namespace TommasoScalici.MVVMExtensions.Commands
     {
         Func<CancellationToken, TParameter, Task<TResult>> execute;
         Func<object, bool> canExecute;
-        ObservableTask<TResult> execution;
 
 
         public event EventHandler<AsyncCommandEventArgs<TParameter, TResult>> Executed;
@@ -187,7 +184,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
         }
 
 
-        public ObservableTask<TResult> Execution { get { return execution; } protected set { Set(ref execution, value); } }
+        public ObservableTask<TResult> Execution { get { return Read<ObservableTask<TResult>>(); } protected set { Write(value); } }
 
 
         public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;

@@ -51,6 +51,7 @@
     <Compile Include="Commands\IRelayCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Notifications\IObservableTask.cs" />
     <Compile Include="Notifications\ObservableObject.cs" />
     <Compile Include="Notifications\ObservableTask.cs" />

@@ -11,7 +11,6 @@ namespace TommasoScalici.MVVMExtensions.Universal.Converters
     /// </summary>
     public sealed class BitmapImageConverter : IValueConverter
     {
-        [SuppressMessage("Warning", "CS1591")]
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is string)
@@ -24,7 +23,6 @@ namespace TommasoScalici.MVVMExtensions.Universal.Converters
         }
 
         [SuppressMessage("Message", "RECS0083")]
-        [SuppressMessage("Warning", "CS1591")]
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

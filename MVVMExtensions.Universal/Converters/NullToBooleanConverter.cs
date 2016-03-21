@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 using Windows.UI.Xaml.Data;
 
-namespace  TommasoScalici.MVVMExtensions.Universal.Converters
+namespace TommasoScalici.MVVMExtensions.Universal.Converters
 {
     /// <summary>
     /// Value converter that translates a null object to false and a not null object to true.
@@ -15,14 +15,12 @@ namespace  TommasoScalici.MVVMExtensions.Universal.Converters
         /// </summary>
         public bool Inverted { get; set; }
 
-        [SuppressMessage("Warning", "CS1591")]
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             return value != null ^ Inverted;
         }
 
         [SuppressMessage("Message", "RECS0083")]
-        [SuppressMessage("Warning", "CS1591")]
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

@@ -15,7 +15,6 @@ namespace TommasoScalici.MVVMExtensions.Universal.Converters
     [SuppressMessage("Warning", "CS0419")]
     public sealed class ColorToBrushConverter : IValueConverter
     {
-        [SuppressMessage("Warning", "CS1591")]
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value == null)
@@ -31,13 +30,11 @@ namespace TommasoScalici.MVVMExtensions.Universal.Converters
         }
 
         [SuppressMessage("Message", "RECS0083")]
-        [SuppressMessage("Warning", "CS1591")]
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }
 
-        [SuppressMessage("Warning", "CS1591")]
         static Color Parse(string color)
         {
             var offset = color.StartsWith("#", StringComparison.Ordinal) ? 1 : 0;

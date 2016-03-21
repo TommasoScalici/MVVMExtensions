@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -7,17 +8,26 @@ using System.Runtime.Serialization;
 namespace TommasoScalici.MVVMExtensions.Notifications
 {
     /// <summary>
-    /// Simple implementation of the <see cref="INotifyPropertyChanged"/> interface. Extend this class to have a bindable ready to use object. Use <see cref="RaisePropertyChanged(string)"/> and <see cref="Set{T}(ref T, T, string)"/> methods to refresh/notify your properties back to the UI. The class has the <see cref="DataContractAttribute"/> applied so you can also easily serialize objects derived from it.
+    /// Simple implementation of the <see cref="INotifyPropertyChanged"/> interface.
+    /// Extend from this class for your models and viewmodels that need to notify UI when a change happens.
+    /// Use <see cref="RaisePropertyChanged(string)"/> and <see cref="Write{T}(T, string)"/> methods to
+    /// refresh/notify your properties back to the UI.
+    /// The class has the <see cref="DataContractAttribute"/> applied so you can also easily serialize objects derived from it.
     /// </summary>
     [DataContract]
     public class ObservableObject : INotifyPropertyChanged
     {
+        [IgnoreDataMember]
+        Dictionary<string, object> properties = new Dictionary<string, object>();
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
 
         /// <summary>
         /// Gets or sets the status (enabled / disabled) of property notification for this object.
         /// </summary>
+        [IgnoreDataMember]
         public bool IsNotifying { get; set; } = true;
 
 
@@ -44,6 +54,42 @@ namespace TommasoScalici.MVVMExtensions.Notifications
         }
 
         /// <summary>
+        /// Read the property value of an <see cref="ObservableObject"/>.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <returns>The current value of the property.</returns>
+        protected T Read<T>([CallerMemberName] string propertyName = null)
+        {
+            if (!properties.ContainsKey(propertyName))
+                properties.Add(propertyName, default(T));
+
+            return (T)properties[propertyName];
+        }
+
+        /// <summary>
+        /// Write the new property value and raise <see cref="PropertyChanged"/> event if <see cref="IsNotifying"/> is true.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="value">The property value.</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <returns>Returns true if the setted value is different of the previous one and an assignment was made,
+        /// false otherwise.</returns>
+        protected bool Write<T>(T value, [CallerMemberName] string propertyName = null)
+        {
+            if (!properties.ContainsKey(propertyName))
+                properties.Add(propertyName, default(T));
+
+            if (EqualityComparer<T>.Default.Equals((T)properties[propertyName], value))
+                return false;
+
+            properties[propertyName] = value;
+            RaisePropertyChanged(propertyName);
+            return true;
+        }
+
+
+        /// <summary>
         /// Sets a new value for the property and the backing store field raising a PropertyChanged event.
         /// </summary>
         /// <typeparam name="T">The type of the field of which set the new value.</typeparam>
@@ -51,6 +97,7 @@ namespace TommasoScalici.MVVMExtensions.Notifications
         /// <param name="newValue">The new value for the field.</param>
         /// <param name="propertyName">The name of the property of which <see cref="PropertyChanged"/> event will be raised. You don't need to pass it if the method is called in the set method of a property.</param>
         /// <returns></returns>
+        [Obsolete("Deprecated, use Write to use notification without the need of a field for backing store.")]
         protected bool Set<T>(ref T field, T newValue = default(T), [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, newValue))

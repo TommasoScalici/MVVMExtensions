@@ -2,15 +2,12 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-using TommasoScalici.MVVMExtensions.Notifications;
-
 namespace TommasoScalici.MVVMExtensions.Commands
 {
     public abstract class AsyncCommandBase : CommandBase
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         ICommand cancelCommand;
-        bool isExecuting;
 
 
         protected AsyncCommandBase()
@@ -22,7 +19,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
         /// <summary>
         /// Return true if the asynchronous <see cref="Task"/> associated with the command is currently executing.
         /// </summary>
-        public bool IsExecuting { get { return isExecuting; } protected set { Set(ref isExecuting, value); } }
+        public bool IsExecuting { get { return Read<bool>(); } protected set { Write(value); } }
         /// <summary>
         /// The <see cref="System.Threading.CancellationToken"/> bound to the inner <see cref="Task"/> associated with the command.
         /// </summary>
@@ -35,7 +32,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
 
         /// <summary>
-        /// Call the <see cref="System.Threading.CancellationTokenSource.Cancel"/> for the <see cref="CancellationTokenSource"/> bound to
+        /// Call the <see cref="Cancel"/> for the <see cref="CancellationTokenSource"/> bound to
         /// the inner <see cref="Task"/> associated with the command.
         /// </summary>
         public void Cancel()

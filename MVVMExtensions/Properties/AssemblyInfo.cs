@@ -6,10 +6,10 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tommaso Scalici")]
 [assembly: AssemblyProduct("MVVM Extensions")]
-[assembly: AssemblyCopyright("Copyright © 2015 Tommaso Scalici")]
+[assembly: AssemblyCopyright("Copyright © 2016 Tommaso Scalici")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("")]
 
-[assembly: AssemblyVersion("1.0.1.2")]
-[assembly: AssemblyFileVersion("1.0.1.2")]
+[assembly: AssemblyVersion("1.0.1.3")]
+[assembly: AssemblyFileVersion("1.0.1.3")]
