@@ -3,8 +3,8 @@ MVVM power extensions for .NET with support for async commands, MVVM-friendly Ta
 
 There are some helper classes for MVVM pattern:
 - ObservableObject and ObservableTask (wrapper of Task but more MVVM-friendly).
-- Standard RelayCommand and RelayCommand<T>.
-- AsyncCommand, AsyncCommand<TResult> and AsyncCommand<TParameter, TResult> for asynchronous Commands that take Tasks as execute action.
+- Standard RelayCommand and RelayCommand\<T\>.
+- AsyncCommand, AsyncCommand\<TResult\> and AsyncCommand\<TParameter, TResult\> for asynchronous Commands that take Tasks as execute action.
 
 And also some useful converter for Windows Universal Apps / RT components:
 - BitmapImageConverter
