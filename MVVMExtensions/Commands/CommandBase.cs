@@ -14,7 +14,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
 
         public abstract bool CanExecute(object parameter);
-        public abstract void Execute(object parameter, bool ignoreCanExecute = false);
+        public abstract void Execute(object parameter, bool ignoreCanExecute);
         public void Execute(object parameter = null) => Execute(parameter, false);
         public void RaiseCanExecuteChanged() => OnCanExecuteChanged();
         protected virtual void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);

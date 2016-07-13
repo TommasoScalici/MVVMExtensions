@@ -10,7 +10,8 @@ using Windows.UI.Xaml.Media;
 namespace TommasoScalici.MVVMExtensions.Universal.Converters
 {
     /// <summary>
-    /// Value converter that translates an hexadecimal <see cref="string"/> or a <see cref="Color"/> to a <see cref="SolidColorBrush"/>.
+    /// Value converter that translates an hexadecimal <see cref="string"/> or a <see cref="Color"/> to a 
+    /// <see cref="SolidColorBrush"/>.
     /// </summary>
     [SuppressMessage("Warning", "CS0419")]
     public sealed class ColorToBrushConverter : IValueConverter
