@@ -6,5 +6,5 @@
 [assembly: AssemblyProduct("MVVM Extensions")]
 [assembly: AssemblyCopyright("Copyright © 2016 Tommaso Scalici")]
 
-[assembly: AssemblyVersion("1.0.1.4")]
-[assembly: AssemblyFileVersion("1.0.1.4")]
+[assembly: AssemblyVersion("1.0.1.6")]
+[assembly: AssemblyFileVersion("1.0.1.6")]
