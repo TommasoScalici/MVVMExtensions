@@ -1,65 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA57BB7F-6D8D-42C0-A038-4B697A2E4569}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MVVMExtensions</RootNamespace>
-    <AssemblyName>MVVMExtensions</AssemblyName>
-    <DefaultLanguage>it-IT</DefaultLanguage>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <RootNamespace>TommasoScalici.MVVMExtensions</RootNamespace>
+    <PackageId>TommasoScalici.MVVMExtensions</PackageId>
+    <Authors>TommasoScalici</Authors>
+    <Company />
+    <Description>MVVM extensions designed for .NET Core with support for async commands, MVVM-friendly Object and Task with support for UI notification.</Description>
+    <PackageTags>MVVM Model View ViewModel Pattern Extensions Async ICommand Command RelayCommand AsyncCommand Observable Task INotifyPropertyChanged UI Notification</PackageTags>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.2</Version>
+    <Copyright>Copyright © 2017 Tommaso Scalici</Copyright>
+    <PackageProjectUrl>https://github.com/TommasoScalici/MVVMExtensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TommasoScalici/MVVMExtensions</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/TommasoScalici/MVVMExtensions/blob/master/LICENSE.md</PackageLicenseUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp1.1\.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
+    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Commands\AsyncCancelCommand.cs" />
-    <Compile Include="Commands\AsyncCommand.cs" />
-    <Compile Include="Commands\AsyncCommandBase.cs" />
-    <Compile Include="Commands\AsyncCommandEventArgs.cs" />
-    <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="Commands\CommandEventArgs.cs" />
-    <Compile Include="Commands\IAsyncCommand.cs" />
-    <Compile Include="Commands\IRelayCommand.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="EnumExtensions.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Notifications\IObservableTask.cs" />
-    <Compile Include="Notifications\ObservableObject.cs" />
-    <Compile Include="Notifications\ObservableTask.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringValueAttribute.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

@@ -19,13 +19,9 @@ namespace TommasoScalici.MVVMExtensions.Commands
         public event EventHandler CanExecuteChanged;
 
 
-        public CancellationToken Token { get { return asyncCommandBase.CancellationToken; } }
+        public CancellationToken Token => asyncCommandBase.CancellationToken;
 
-
-        public bool CanExecute(object parameter = null)
-        {
-            return asyncCommandBase.IsExecuting && !Token.IsCancellationRequested;
-        }
+        public bool CanExecute(object parameter = null) => asyncCommandBase.IsExecuting && !Token.IsCancellationRequested;
 
         public void Execute(object parameter = null)
         {

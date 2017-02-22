@@ -5,10 +5,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
     public class AsyncCommandEventArgs : CommandEventArgs
     {
         public AsyncCommandEventArgs(ObservableTask task, object parameter)
-            : base(parameter)
-        {
-            Task = task;
-        }
+            : base(parameter) => Task = task;
 
 
         public ObservableTask Task { get; private set; }

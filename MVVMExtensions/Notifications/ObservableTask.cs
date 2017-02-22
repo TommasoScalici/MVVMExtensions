@@ -11,16 +11,7 @@ namespace TommasoScalici.MVVMExtensions.Notifications
             TaskObserver = task.ContinueWith(t => RaiseAllPropertyChanged(), TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-        public string ErrorMessage { get { return Exception?.InnerException?.Message; } }
-        public AggregateException Exception { get { return Task.Exception; } }
-        public Exception InnerException { get { return Exception?.InnerException; } }
-        public bool IsCanceled { get { return Task.IsCanceled; } }
-        public bool IsFaulted { get { return Task.IsFaulted; } }
-        public bool IsNotCompleted { get { return !IsCompleted; } }
-        public bool IsCompleted { get { return Task.IsCompleted; } }
-        public bool IsSuccesfullyCompleted { get { return Status == TaskStatus.RanToCompletion; } }
-        public TaskStatus Status { get { return Task.Status; } }
-        public Task TaskObserver { get; protected set; }
+        public string ErrorMessage => Exception?.InnerException?.Message; public AggregateException Exception => Task.Exception; public Exception InnerException => Exception?.InnerException; public bool IsCanceled => Task.IsCanceled; public bool IsFaulted => Task.IsFaulted; public bool IsNotCompleted => !IsCompleted; public bool IsCompleted => Task.IsCompleted; public bool IsSuccesfullyCompleted => Status == TaskStatus.RanToCompletion; public TaskStatus Status => Task.Status; public Task TaskObserver { get; protected set; }
         public Task Task { get; private set; }
     }
 
@@ -34,18 +25,8 @@ namespace TommasoScalici.MVVMExtensions.Notifications
         }
 
 
-        public string ErrorMessage { get { return Exception?.InnerException?.Message; } }
-        public AggregateException Exception { get { return Task.Exception; } }
-        public Exception InnerException { get { return Exception?.InnerException; } }
-        public bool IsCanceled { get { return Task.IsCanceled; } }
-        public bool IsFaulted { get { return Task.IsFaulted; } }
-        public bool IsNotCompleted { get { return !IsCompleted; } }
-        public bool IsCompleted { get { return Task.IsCompleted; } }
-        public bool IsSuccesfullyCompleted { get { return Status == TaskStatus.RanToCompletion; } }
-        public TaskStatus Status { get { return Task.Status; } }
-        public Task TaskObserver { get; protected set; }
-        Task IObservableTask.Task { get { return Task; } }
-        public Task<TResult> Task { get; private set; }
-        public TResult Result { get { return Status == TaskStatus.RanToCompletion ? Task.Result : default(TResult); } }
+        public string ErrorMessage => Exception?.InnerException?.Message; public AggregateException Exception => Task.Exception; public Exception InnerException => Exception?.InnerException; public bool IsCanceled => Task.IsCanceled; public bool IsFaulted => Task.IsFaulted; public bool IsNotCompleted => !IsCompleted; public bool IsCompleted => Task.IsCompleted; public bool IsSuccesfullyCompleted => Status == TaskStatus.RanToCompletion; public TaskStatus Status => Task.Status; public Task TaskObserver { get; protected set; }
+        Task IObservableTask.Task => Task; public Task<TResult> Task { get; private set; }
+        public TResult Result => Status == TaskStatus.RanToCompletion ? Task.Result : default(TResult);
     }
 }
