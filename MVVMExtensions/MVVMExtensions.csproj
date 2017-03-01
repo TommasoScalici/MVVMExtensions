@@ -1,25 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netstandard1.4</TargetFramework>
     <RootNamespace>TommasoScalici.MVVMExtensions</RootNamespace>
     <PackageId>TommasoScalici.MVVMExtensions</PackageId>
     <Authors>TommasoScalici</Authors>
     <Company />
     <Description>MVVM extensions designed for .NET Core with support for async commands, MVVM-friendly Object and Task with support for UI notification.</Description>
     <PackageTags>MVVM Model View ViewModel Pattern Extensions Async ICommand Command RelayCommand AsyncCommand Observable Task INotifyPropertyChanged UI Notification</PackageTags>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
-    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.2.2</AssemblyVersion>
+    <FileVersion>1.0.2.2</FileVersion>
+    <Version>1.0.2.2</Version>
     <Copyright>Copyright © 2017 Tommaso Scalici</Copyright>
     <PackageProjectUrl>https://github.com/TommasoScalici/MVVMExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TommasoScalici/MVVMExtensions</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/TommasoScalici/MVVMExtensions/blob/master/LICENSE.md</PackageLicenseUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageReleaseNotes>Project converted from PCL to .NET Standard 1.4</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netcoreapp1.1\.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard1.6\MVVMExtensions.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
