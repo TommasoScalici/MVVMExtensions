@@ -20,5 +20,4 @@ namespace TommasoScalici.MVVMExtensions.Commands
         protected virtual void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         protected virtual void OnExecuted(EventArgs e) => RaiseCanExecuteChanged();
     }
-
 }

@@ -2,29 +2,34 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <PackageTargetFallback>$(PackageTargetFallback);portable-win+net45+wp8+win81+wpa8</PackageTargetFallback>
     <RootNamespace>TommasoScalici.MVVMExtensions</RootNamespace>
     <PackageId>TommasoScalici.MVVMExtensions</PackageId>
     <Authors>TommasoScalici</Authors>
     <Company />
-    <Description>MVVM extensions designed for .NET Core with support for async commands, MVVM-friendly Object and Task with support for UI notification.</Description>
+    <Description>MVVM extensions designed for .NET Standard with support for async commands, MVVM-friendly Object and Task with support for UI notification.</Description>
     <PackageTags>MVVM Model View ViewModel Pattern Extensions Async ICommand Command RelayCommand AsyncCommand Observable Task INotifyPropertyChanged UI Notification</PackageTags>
-    <AssemblyVersion>1.0.2.2</AssemblyVersion>
-    <FileVersion>1.0.2.2</FileVersion>
-    <Version>1.0.2.2</Version>
+    <AssemblyVersion>1.0.2.5</AssemblyVersion>
+    <FileVersion>1.0.2.5</FileVersion>
+    <Version>1.0.2.5</Version>
     <Copyright>Copyright © 2017 Tommaso Scalici</Copyright>
     <PackageProjectUrl>https://github.com/TommasoScalici/MVVMExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TommasoScalici/MVVMExtensions</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/TommasoScalici/MVVMExtensions/blob/master/LICENSE.md</PackageLicenseUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Project converted from PCL to .NET Standard 1.4</PackageReleaseNotes>
+    <PackageReleaseNotes>Clean-up of old dependencies.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.6\MVVMExtensions.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard1.4\MVVMExtensions.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.1.4" />
   </ItemGroup>
 
 </Project>

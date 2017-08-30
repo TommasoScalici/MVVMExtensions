@@ -16,14 +16,15 @@ namespace TommasoScalici.MVVMExtensions.Commands
         /// <summary>
         /// Return true if the asynchronous <see cref="Task"/> associated with the command is currently executing.
         /// </summary>
-        public bool IsExecuting { get => Read<bool>(); protected set => Write(value); }
+        public bool IsExecuting { get; protected set; }
         /// <summary>
         /// The <see cref="System.Threading.CancellationToken"/> bound to the inner <see cref="Task"/> associated with the command.
         /// </summary>
-        public CancellationToken CancellationToken => cancellationTokenSource.Token;         /// <summary>
-                                                                                             /// You have to execute this command to send a <see cref="Cancel"/> request to the <see cref="Task"/> associated
-                                                                                             /// with the <see cref="AsyncCommand"/>.
-                                                                                             /// </summary>
+        public CancellationToken CancellationToken => cancellationTokenSource.Token;
+        /// <summary>
+        /// You have to execute this command to send a <see cref="Cancel"/> request to the <see cref="Task"/> associated
+        /// with the <see cref="AsyncCommand"/>.
+        /// </summary>
         public ICommand CancelCommand => cancelCommand;
 
         /// <summary>

@@ -43,7 +43,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
         }
 
 
-        public ObservableTask Execution { get => Read<ObservableTask>(); protected set => Write(value); }
+        public ObservableTask Execution { get; protected set; }
 
 
         public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;
@@ -115,7 +115,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
         }
 
 
-        public ObservableTask<TResult> Execution { get => Read<ObservableTask<TResult>>(); protected set => Write(value); }
+        public ObservableTask<TResult> Execution { get; protected set; }
 
 
         public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;
@@ -184,7 +184,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
         }
 
 
-        public ObservableTask<TResult> Execution { get => Read<ObservableTask<TResult>>(); protected set => Write(value); }
+        public ObservableTask<TResult> Execution { get; protected set; }
 
 
         public override bool CanExecute(object parameter = null) => canExecute?.Invoke(parameter) ?? false;
