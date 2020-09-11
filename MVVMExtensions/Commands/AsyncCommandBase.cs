@@ -7,7 +7,7 @@ namespace TommasoScalici.MVVMExtensions.Commands
     public abstract class AsyncCommandBase : CommandBase
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        ICommand cancelCommand;
+        readonly ICommand cancelCommand;
 
 
         protected AsyncCommandBase() => cancelCommand = new AsyncCancelCommand(this);

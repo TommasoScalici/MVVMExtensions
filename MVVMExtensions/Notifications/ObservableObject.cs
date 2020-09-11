@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -11,9 +10,6 @@ namespace TommasoScalici.MVVMExtensions.Notifications
     [AddINotifyPropertyChangedInterface]
     public abstract class ObservableObject
     {
-        Dictionary<string, object> properties = new Dictionary<string, object>();
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>

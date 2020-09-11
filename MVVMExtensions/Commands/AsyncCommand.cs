@@ -8,8 +8,8 @@ namespace TommasoScalici.MVVMExtensions.Commands
 {
     public class AsyncCommand : AsyncCommandBase, IAsyncCommand
     {
-        Func<CancellationToken, Task> execute;
-        Func<object, bool> canExecute;
+        readonly Func<CancellationToken, Task> execute;
+        readonly Func<object, bool> canExecute;
 
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
     public class AsyncCommand<TResult> : AsyncCommandBase, IAsyncCommand<TResult>
     {
-        Func<CancellationToken, Task<TResult>> execute;
-        Func<object, bool> canExecute;
+        readonly Func<CancellationToken, Task<TResult>> execute;
+        readonly Func<object, bool> canExecute;
 
 
         /// <summary>
@@ -152,8 +152,8 @@ namespace TommasoScalici.MVVMExtensions.Commands
 
     public class AsyncCommand<TParameter, TResult> : AsyncCommandBase, IAsyncCommand<TParameter, TResult>
     {
-        Func<CancellationToken, TParameter, Task<TResult>> execute;
-        Func<object, bool> canExecute;
+        readonly Func<CancellationToken, TParameter, Task<TResult>> execute;
+        readonly Func<object, bool> canExecute;
 
 
         public event EventHandler<AsyncCommandEventArgs<TParameter, TResult>> Executed;

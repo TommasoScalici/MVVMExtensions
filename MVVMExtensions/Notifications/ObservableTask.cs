@@ -45,7 +45,7 @@ namespace TommasoScalici.MVVMExtensions.Notifications
         public TaskStatus Status => Task.Status;
         public Task TaskObserver { get; protected set; }
         public Task<TResult> Task { get; private set; }
-        public TResult Result => Status == TaskStatus.RanToCompletion ? Task.Result : default(TResult);
+        public TResult Result => Status == TaskStatus.RanToCompletion ? Task.Result : default;
         Task IObservableTask.Task => Task;
     }
 }
